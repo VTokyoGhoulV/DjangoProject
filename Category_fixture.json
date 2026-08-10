@@ -1,0 +1,18 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "Смартфоны",
+        "description": "Обычные смартфоны"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+        "name": "Телевизоры",
+        "description": "Обычные телевизоры"
+    }
+}
+]
