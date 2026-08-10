@@ -30,15 +30,18 @@
             <section class="card shadow-sm h-100" aria-labelledby="details-title">
                 <div class="card-header py-3"><h2 class="h4 mb-0" id="details-title">Реквизиты компании</h2></div>
                 <div class="card-body p-0">
+                    {% for contact in contacts %}
                     <div class="table-responsive">
                         <table class="table table-striped align-middle mb-0">
                             <tbody>
-                            <tr><th class="p-3" scope="row">Страна</th><td class="p-3">USA</td></tr>
-                            <tr><th class="p-3" scope="row">ИНН</th><td class="p-3">91-1144442</td></tr>
-                            <tr><th class="p-3" scope="row">Адрес</th><td class="p-3">Redmond, WA, 98052-6399</td></tr>
+                            <tr><th class="p-3" scope="row">Имя</th><td class="p-3">{{contact.name}}</td></tr>
+                            <tr><th class="p-3" scope="row">Электронная почта</th><td class="p-3">{{contact.email}}</td></tr>
+                            <tr><th class="p-3" scope="row">Телефон</th><td class="p-3">{{contact.phone}}</td></tr>
+                            <tr><th></th><td></td></tr>
                             </tbody>
                         </table>
                     </div>
+                    {% endfor %}
                 </div>
             </section>
         </div>
