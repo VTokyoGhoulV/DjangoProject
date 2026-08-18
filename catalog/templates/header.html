@@ -1,0 +1,16 @@
+<header class="bg-white border-bottom shadow-sm">
+    <nav class="navbar navbar-expand-md container py-3" aria-label="Основная навигация">
+        <a class="navbar-brand fw-semibold" href="{% url 'home' %}">SkyStore</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu"
+                aria-controls="mainMenu" aria-expanded="false" aria-label="Открыть меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainMenu">
+            <div class="navbar-nav ms-auto gap-2 pt-3 pt-md-0">
+                <a class="btn btn-primary" aria-current="page" href="{% url 'home' %}">Каталог</a>
+                <a class="btn btn-outline-primary" href="{% url 'contacts' %}">Контакты</a>
+                <a class="btn btn-outline-primary" href="{% url 'add_product' %}">Добавить товар</a>
+            </div>
+        </div>
+    </nav>
+</header>
