@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %} Детали поста {% endblock %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <div>
+        <h1>{{ post.title }}</h1>
+        <p>Содержание: {{ post.content }}</p>
+        <p>Пост добавлен: {{ post.date|date:"d M Y" }}</p>
+        <p>
+            Статус:
+            {% if post.published %}опубликован{% else %}не опубликован{% endif %}
+        </p>
+        <p>Количество просмотров: {{ post.views }}</p>
+        {% if post.image %}
+        <img
+                src="{{ post.image.url }}"
+                alt="{{ post.title }}"
+                class="img-fluid rounded"
+                style="max-width: 500px;"
+        >
+        {% else %}
+        <p>Изображение отсутствует</p>
+        {% endif %}
+    </div>
+    <div class="mt-5">
+        <a class="btn btn-primary" aria-current="page" href="{% url 'posts_list' %}">Вернуться к списку постов</a>
+        <a class="btn btn-warning" aria-current="page" href="{% url 'update_post' pk=post.pk %}">Редактировать</a>
+        <a class="btn btn-danger" aria-current="page" href="{% url 'delete_post' pk=post.pk %}">Удалить</a>
+    </div>
+</div>
+{% endblock %}

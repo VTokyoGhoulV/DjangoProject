@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %} SkyStore — Посты {% endblock %}
+{% block content %}
+<main class="flex-grow-1">
+    <section class="container py-5 text-center">
+        <h1 class="display-4 fw-semibold">SkyStore</h1>
+    </section>
+
+    <section class="container pb-5" aria-labelledby="catalog-title">
+        <h2 class="visually-hidden" id="catalog-title">Каталог</h2>
+        <div class="row g-4 justify-content-center">
+            {% for post in posts %}
+            <div class="col-sm-10 col-md-6 col-lg-4">
+                <article class="card h-100 shadow-sm">
+                    <div class="card-header text-center py-3">
+                        <h3 class="h4 mb-0">{{ post.title }}</h3>
+                    </div>
+                    {% if post.image %}
+                    <img
+                            class="card-img-top"
+                            src="{{ post.image.url }}"
+                            alt="{{ post.title }}"
+                            style="height: 200px; object-fit: cover;"
+                    >
+                    {% else %}
+                    <div class="text-center text-secondary p-5" style="height: 200px;">
+                        Изображение отсутствует
+                    </div>
+                    {% endif %}
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item px-0">{{ post.content|truncatechars:100 }}</li>
+                        </ul>
+                        <a class="btn btn-outline-primary btn-lg mt-auto" type="button"
+                           href="{% url 'post_detail' post.pk %}">Подробнее</a>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+        {% if page_obj.has_other_pages %}
+        <nav class="mt-5" aria-label="Навигация по страницам">
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                    {% if page_obj.has_previous %}
+                    <a class="page-link"
+                       href="?page={{ page_obj.previous_page_number }}">
+                        Назад
+                    </a>
+                    {% else %}
+                    <span class="page-link">Назад</span>
+                    {% endif %}
+                </li>
+
+                {% for page_number in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == page_number %}active{% endif %}">
+                    <a class="page-link" href="?page={{ page_number }}">
+                        {{ page_number }}
+                    </a>
+                </li>
+                {% endfor %}
+
+                <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                    {% if page_obj.has_next %}
+                    <a class="page-link"
+                       href="?page={{ page_obj.next_page_number }}">
+                        Вперёд
+                    </a>
+                    {% else %}
+                    <span class="page-link">Вперёд</span>
+                    {% endif %}
+                </li>
+
+            </ul>
+        </nav>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}
