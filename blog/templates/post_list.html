@@ -1,28 +1,25 @@
 {% extends "base.html" %}
-{% block title %} SkyStore — каталог {% endblock %}
+{% block title %} SkyStore — Посты {% endblock %}
 {% block content %}
 <main class="flex-grow-1">
     <section class="container py-5 text-center">
         <h1 class="display-4 fw-semibold">SkyStore</h1>
-        <p class="lead text-secondary mx-auto" style="max-width: 760px;">
-            Удобная площадка для хранения и продажи плагинов, полезных утилит и примеров кода.
-        </p>
     </section>
 
     <section class="container pb-5" aria-labelledby="catalog-title">
         <h2 class="visually-hidden" id="catalog-title">Каталог</h2>
         <div class="row g-4 justify-content-center">
-            {% for product in products %}
+            {% for post in posts %}
             <div class="col-sm-10 col-md-6 col-lg-4">
                 <article class="card h-100 shadow-sm">
                     <div class="card-header text-center py-3">
-                        <h3 class="h4 mb-0">{{ product.name }}</h3>
+                        <h3 class="h4 mb-0">{{ post.title }}</h3>
                     </div>
-                    {% if product.image %}
+                    {% if post.image %}
                     <img
                             class="card-img-top"
-                            src="{{ product.image.url }}"
-                            alt="{{ product.name }}"
+                            src="{{ post.image.url }}"
+                            alt="{{ post.title }}"
                             style="height: 200px; object-fit: cover;"
                     >
                     {% else %}
@@ -30,14 +27,11 @@
                         Изображение отсутствует
                     </div>
                     {% endif %}
-                    <div class="card-body d-flex flex-column p-4">
-                        <p class="display-6 fw-semibold text-center">{{ product.price }}руб.</p>
                         <ul class="list-group list-group-flush mb-4">
-                            <li class="list-group-item px-0">{{ product.description|truncatechars:100 }}</li>
+                            <li class="list-group-item px-0">{{ post.content|truncatechars:100 }}</li>
                         </ul>
                         <a class="btn btn-outline-primary btn-lg mt-auto" type="button"
-                           href="product_detail/{{ product.id }}/">Подробнее</a>
-                    </div>
+                           href="{% url 'post_detail' post.pk %}">Подробнее</a>
                 </article>
             </div>
             {% endfor %}

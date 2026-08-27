@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %} SkyStore — Добавление поста {% endblock %}
+{% block content %}
+<main>
+    <div class="container py-5">
+        <div class="card shadow-sm mx-auto" style="max-width: 650px;">
+            <div class="card-body p-4">
+                <h1 class="mb-4">Добавление поста</h1>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <button type="submit" class="btn btn-primary">
+                        Добавить пост
+                    </button>
+                    <a href="{% url 'posts_list' %}" class="btn btn-danger">
+                        Отменить
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

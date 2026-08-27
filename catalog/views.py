@@ -1,43 +1,40 @@
-from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView, CreateView
 
 from catalog.form import ProductForm
 from catalog.models import Product, Contact
 
 
-def home(request):
-    products = Product.objects.all()
-
-    paginator = Paginator(products, 6)
-    page_number = request.GET.get("page")
-    products_page = paginator.get_page(page_number)
-
-    return render(
-        request,
-        "home.html",
-        {"products": products_page},
-    )
+class ProductList(ListView):
+    model = Product
+    queryset = Product.objects.order_by("pk")
+    template_name = "home.html"
+    context_object_name = "products"
+    paginate_by = 6
 
 
-def contacts(request):
-    if request.method == "POST":
-        return render(request, "contacts.html", {"message": "Данные отправлены"})
-    return render(request, "contacts.html", {"contacts": Contact.objects.all()})
+class ContactView(ListView):
+    model = Contact
+    template_name = "contacts.html"
+    context_object_name = "contacts"
+
+    def post(self, request):
+        self.object_list = self.get_queryset()
+        context = self.get_context_data()
+        context["message"] = "Данные отправлены"
+
+        return render(request, self.template_name, context)
 
 
-def product_detail(request, id):
-    product = Product.objects.get(id=id)
-    return render(request, "product_details.html", {"product": product})
+class ProductDetail(DetailView):
+    model = Product
+    template_name = "product_details.html"
+    context_object_name = "product"
 
 
-def add_product(request):
-    if request.method == "POST":
-        form = ProductForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            form.save()
-            return redirect("home")
-    else:
-        form = ProductForm()
-
-    return render(request, "add_product.html", {"form": form})
+class CreateProduct(CreateView):
+    model = Product
+    template_name = "add_product.html"
+    form_class = ProductForm
+    success_url = reverse_lazy("home")

@@ -8,8 +8,10 @@
         <div class="collapse navbar-collapse" id="mainMenu">
             <div class="navbar-nav ms-auto gap-2 pt-3 pt-md-0">
                 <a class="btn btn-primary" aria-current="page" href="{% url 'home' %}">Каталог</a>
+                <a class="btn btn-outline-primary" href="{% url 'posts_list' %}">Посты</a>
                 <a class="btn btn-outline-primary" href="{% url 'contacts' %}">Контакты</a>
                 <a class="btn btn-outline-primary" href="{% url 'add_product' %}">Добавить товар</a>
+                <a class="btn btn-outline-primary" href="{% url 'add_post' %}">Добавить пост</a>
             </div>
         </div>
     </nav>
