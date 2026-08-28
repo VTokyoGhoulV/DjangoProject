@@ -2,22 +2,29 @@
 {% block title %} Информация о товаре {% endblock %}
 {% block content %}
 <div class="container mt-5 text-center">
-    <h1>Информация о продукте: {{ product.name }}</h1>
-    <p>Имя: {{ product.name }}</p>
-    <p>Описание: {{ product.description }}</p>
-    <p>Категория: {{ product.category }}</p>
-    <p>Цена: {{ product.price }}</p>
-    <p>Товар добавлен: {{ product.created_at|date:"d M Y" }}</p>
-    <p>Товар обновлен: {{ product.updated_at|date:"d M Y" }}</p>
-    {% if product.image %}
-    <img
-            src="{{ product.image.url }}"
-            alt="{{ product.name }}"
-            class="img-fluid rounded"
-            style="max-width: 500px;"
-    >
-    {% else %}
-    <p>Изображение отсутствует</p>
-    {% endif %}
+    <div class="container mt-5 text-center">
+        <h1>Информация о продукте: {{ product.name }}</h1>
+        <p>Имя: {{ product.name }}</p>
+        <p>Описание: {{ product.description }}</p>
+        <p>Категория: {{ product.category }}</p>
+        <p>Цена: {{ product.price }}</p>
+        <p>Товар добавлен: {{ product.created_at|date:"d M Y" }}</p>
+        <p>Товар обновлен: {{ product.updated_at|date:"d M Y" }}</p>
+        {% if product.image %}
+        <img
+                src="{{ product.image.url }}"
+                alt="{{ product.name }}"
+                class="img-fluid rounded"
+                style="max-width: 500px;"
+        >
+        {% else %}
+        <p>Изображение отсутствует</p>
+        {% endif %}
+    </div>
+    <div class="mt-5">
+        <a class="btn btn-primary" aria-current="page" href="{% url 'home' %}">Вернуться к списку постов</a>
+        <a class="btn btn-warning" aria-current="page" href="{% url 'update_product' pk=product.pk %}">Редактировать</a>
+        <a class="btn btn-danger" aria-current="page" href="{% url 'delete_product' pk=product.pk %}">Удалить</a>
+    </div>
 </div>
 {% endblock %}
