@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %} SkyStore — редактирование поста {% endblock %}
+{% block title %} SkyStore — Редактирование продукта {% endblock %}
 {% block content %}
 <main>
     <div class="container py-5">
         <div class="card shadow-sm mx-auto" style="max-width: 650px;">
             <div class="card-body p-4">
-                <h1 class="mb-4">Редактирование поста</h1>
+                <h1 class="mb-4">Редактирование продукта</h1>
 
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -14,7 +14,7 @@
                     <button type="submit" class="btn btn-primary">
                         Обновить
                     </button>
-                    <a href="{% url 'posts_list' %}" class="btn btn-danger">
+                    <a href="{% url 'home' %}" class="btn btn-danger">
                         Отменить
                     </a>
                 </form>
