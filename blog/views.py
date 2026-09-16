@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, CreateView, UpdateView, DeleteView
@@ -7,7 +8,7 @@ from blog.form import PostForm
 from blog.models import Blog
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, DetailView):
     model = Blog
     template_name = "post_detail.html"
     context_object_name = "post"
@@ -28,7 +29,7 @@ class PostDetailView(DetailView):
         return post
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin, ListView):
     model = Blog
     queryset = Blog.objects.filter(
         published=True
@@ -38,7 +39,7 @@ class PostListView(ListView):
     paginate_by = 6
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Blog
     template_name = "post_create.html"
     context_object_name = "post"
@@ -46,7 +47,7 @@ class PostCreateView(CreateView):
     success_url = reverse_lazy("posts_list")
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Blog
     template_name = "post_update.html"
     context_object_name = "post"
@@ -56,8 +57,7 @@ class PostUpdateView(UpdateView):
         return reverse_lazy("post_detail", kwargs={"pk": self.object.pk})
 
 
-
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Blog
     template_name = "post_delete.html"
     success_url = reverse_lazy("posts_list")
