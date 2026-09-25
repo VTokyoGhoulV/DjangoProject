@@ -17,3 +17,9 @@ class Blog(models.Model):
     class Meta:
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
+        permissions = [
+            (
+                "can_unpublish_blog",
+                "Может отменять публикацию поста"
+            )
+        ]

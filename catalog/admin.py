@@ -29,4 +29,4 @@ class ContactAdmin(admin.ModelAdmin):
 class BlogAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "published")
     list_filter = ("id", "published")
-    search_fields = ("title", "description")
+    search_fields = ("title","content")
