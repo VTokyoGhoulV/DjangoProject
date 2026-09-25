@@ -2,13 +2,23 @@
 {% block title %} SkyStore — каталог {% endblock %}
 {% block content %}
 <main class="flex-grow-1">
-    <section class="container py-5 text-center">
+    <section class="container py-2 text-center">
         <h1 class="display-4 fw-semibold">SkyStore</h1>
         <p class="lead text-secondary mx-auto" style="max-width: 760px;">
             Удобная площадка для хранения и продажи плагинов, полезных утилит и примеров кода.
         </p>
     </section>
-
+    <section class="container py-2 my-2 text-center">
+        <form>
+            <select class="form-select my-2 text-center" aria-label="Default select example" name="category">
+                <option value="" selected>Выберете категорию</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{category.name}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Применить">
+        </form>
+    </section>
     <section class="container pb-5" aria-labelledby="catalog-title">
         <h2 class="visually-hidden" id="catalog-title">Каталог</h2>
         <div class="row g-4 justify-content-center">
@@ -36,7 +46,7 @@
                             <li class="list-group-item px-0">{{ product.description|truncatechars:100 }}</li>
                         </ul>
                         <a class="btn btn-outline-primary btn-lg mt-auto" type="button"
-                           href="product_detail/{{ product.id }}/">Подробнее</a>
+                           href="{% url 'product_detail' pk=product.pk %}">Подробнее</a>
                     </div>
                 </article>
             </div>
@@ -49,7 +59,7 @@
                 <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
                     {% if page_obj.has_previous %}
                     <a class="page-link"
-                       href="?page={{ page_obj.previous_page_number }}">
+                       href="?category={{ request.GET.category }}&amp;page={{ page_obj.previous_page_number }}">
                         Назад
                     </a>
                     {% else %}
@@ -59,7 +69,7 @@
 
                 {% for page_number in page_obj.paginator.page_range %}
                 <li class="page-item {% if page_obj.number == page_number %}active{% endif %}">
-                    <a class="page-link" href="?page={{ page_number }}">
+                    <a class="page-link" href="?category={{ request.GET.category }}&amp;page={{ page_number }}">
                         {{ page_number }}
                     </a>
                 </li>
@@ -68,7 +78,7 @@
                 <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
                     {% if page_obj.has_next %}
                     <a class="page-link"
-                       href="?page={{ page_obj.next_page_number }}">
+                       href="?category={{ request.GET.category }}&amp;page={{ page_obj.next_page_number }}">
                         Вперёд
                     </a>
                     {% else %}
